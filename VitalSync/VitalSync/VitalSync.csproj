@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.SfChart.WPF" Version="*" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\electrocardiogram.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>    
+	<Resource Include="Images\export.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>
