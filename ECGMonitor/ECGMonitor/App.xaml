@@ -1,7 +1,7 @@
-﻿<Application x:Class="VitalSync.App"
+﻿<Application x:Class="ECGMonitor.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:VitalSync"
+             xmlns:local="clr-namespace:ECGMonitor"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

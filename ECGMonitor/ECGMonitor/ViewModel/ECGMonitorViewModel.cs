@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Threading;
 
-namespace VitalSync.ViewModel
+namespace ECGMonitor.ViewModel
 {
     public partial class ECGMonitorViewModel : INotifyPropertyChanged
     {

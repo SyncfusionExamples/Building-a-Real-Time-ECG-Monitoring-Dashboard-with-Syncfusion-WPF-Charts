@@ -1,20 +1,18 @@
-﻿using Microsoft.Win32;
-using Syncfusion.UI.Xaml.Charts;
+﻿using ECGMonitor.ViewModel;
+using Microsoft.Win32;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using VitalSync.ViewModel;
 
-namespace VitalSync
+namespace ECGMonitor
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ECGMonitorViewModel _viewModel;
+        private readonly ECGMonitorViewModel _viewModel;
 
         public MainWindow()
         {

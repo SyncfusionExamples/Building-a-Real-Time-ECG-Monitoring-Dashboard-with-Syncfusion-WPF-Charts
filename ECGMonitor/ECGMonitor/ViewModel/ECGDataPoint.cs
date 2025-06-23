@@ -1,4 +1,4 @@
-﻿namespace VitalSync.ViewModel
+﻿namespace ECGMonitor.ViewModel
 {
     public class ECGDataPoint
     {

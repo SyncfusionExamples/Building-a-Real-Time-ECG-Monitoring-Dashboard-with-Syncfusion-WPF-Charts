@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace VitalSync
+namespace ECGMonitor
 {
     /// <summary>
     /// Interaction logic for App.xaml

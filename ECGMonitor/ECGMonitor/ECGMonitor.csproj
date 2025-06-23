@@ -16,8 +16,8 @@
   <ItemGroup>
     <Resource Include="Images\electrocardiogram.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>    
-	<Resource Include="Images\export.png">
+    </Resource>
+    <Resource Include="Images\export.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
