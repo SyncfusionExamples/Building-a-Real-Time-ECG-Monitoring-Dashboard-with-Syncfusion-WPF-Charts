@@ -14,6 +14,48 @@
             <local:ECGMonitorViewModel/>
         </Grid.DataContext>
 
+        <Grid.Resources>
+            <Style TargetType="Border" x:Key="borderStyle">
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="BorderBrush" Value="#e3e2df"/>
+                <Setter Property="Background" Value="#0a1f53"/>
+                <Setter Property="Padding" Value="20"/>
+                <Setter Property="CornerRadius" Value="10"/>
+            </Style>
+            
+            <Style TargetType="TextBlock" x:Key="bindingTextStyle">
+                <Setter Property="FontSize" Value="28"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="#2ac145"/>
+                <Setter Property="TextAlignment" Value="Right"/>
+            </Style>
+            
+            <Style TargetType="TextBlock" x:Key="staticTextStyle">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="#e3e2df"/>
+                <Setter Property="TextAlignment" Value="Right"/>
+            </Style>
+
+            <Style TargetType="TextBlock" x:Key="timeIndicatorTextStyle">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <Setter Property="Foreground" Value="#FFFFFF"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+
+            <Style TargetType="Path" x:Key="iconStyle">
+                <Setter Property="Stretch" Value="Uniform"/>
+                <Setter Property="Fill" Value="#FFFFFFFF"/>
+                <Setter Property="Width" Value="60"/>
+                <Setter Property="Height" Value="60"/>
+                <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+
+            </Style>
+        </Grid.Resources>
+
         <Grid.RowDefinitions>
             <!-- Define rows for different sections -->
             <RowDefinition Height="2.2*" />
@@ -31,7 +73,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- ECG Monitor Title -->
-            <Border Grid.Row="0" Grid.Column="0" Background="#0a1f53" BorderBrush="#e3e2df" BorderThickness="2" CornerRadius="10" Padding="20" Margin="0,0,10,10">
+            <Border Grid.Row="0" Grid.Column="0" Margin="0,0,10,10" Style="{StaticResource borderStyle}">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Image Source="/Images/electrocardiogram.png" Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0" />
                     <TextBlock Text="Electrocardiogram Monitor" FontSize="35" FontWeight="Bold" Foreground="#e3e2df" VerticalAlignment="Center"/>
@@ -39,35 +81,35 @@
             </Border>
 
             <!-- Blood Pressure Metric -->
-            <Border BorderBrush="#e3e2df" BorderThickness="2" Background="#0a1f53" Grid.Row="0" Grid.Column="1" CornerRadius="10" Padding="20" Margin="0,0,10,10">
+            <Border Grid.Row="0" Grid.Column="1" Margin="0,0,10,10" Style="{StaticResource borderStyle}">
                 <Grid>
                     <!-- Define columns for icon and text -->
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3.5*"/>
                         <ColumnDefinition Width="6.5*"/>
                     </Grid.ColumnDefinitions>
-                    <Path x:Name="bloodPressure" Stretch="Uniform" Fill="#FFFFFFFF" Width="60" Height="60" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <TextBlock Text="35 min" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White"/>
+                    <Path x:Name="bloodPressure" Style="{StaticResource iconStyle}"/>
+                    <TextBlock Text="35 min" Style="{StaticResource timeIndicatorTextStyle}"/>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical">
-                        <TextBlock Text="{Binding BloodPressure}" FontSize="28" FontWeight="Bold" Foreground="#2ac145" TextAlignment="Right"/>
-                        <TextBlock Text="Blood Pressure" FontSize="16" FontWeight="Bold" Foreground="#e3e2df" TextAlignment="Right"/>
+                        <TextBlock Text="{Binding BloodPressure}" Style="{StaticResource bindingTextStyle}"/>
+                        <TextBlock Text="Blood Pressure" Style="{StaticResource staticTextStyle}"/>
                     </StackPanel>
                 </Grid>
             </Border>
 
             <!-- Body Temperature Metric -->
-            <Border BorderBrush="#e3e2df" BorderThickness="2" Background="#0a1f53" Grid.Row="0" Grid.Column="2" CornerRadius="10" Padding="20" Margin="0,0,0,10">
+            <Border Grid.Row="0" Grid.Column="2" Margin="0,0,0,10" Style="{StaticResource borderStyle}">
                 <Grid>
                     <!-- Define columns for icon and text -->
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
-                    <Path x:Name="bodyTemperature" Stretch="Uniform" Fill="#FFFFFFFF" Width="60" Height="60" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <TextBlock Text="120 min" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White"/>
+                    <Path x:Name="bodyTemperature" Style="{StaticResource iconStyle}"/>
+                    <TextBlock Text="120 min" Style="{StaticResource timeIndicatorTextStyle}"/>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical">
-                        <TextBlock Text="{Binding BodyTemperature}" FontSize="28" FontWeight="Bold" Foreground="#2ac145" TextAlignment="Right"/>
-                        <TextBlock Text="Body Temperature" FontSize="16" FontWeight="Bold" Foreground="#e3e2df" TextAlignment="Right"/>
+                        <TextBlock Text="{Binding BodyTemperature}" Style="{StaticResource bindingTextStyle}"/>
+                        <TextBlock Text="Body Temperature" Style="{StaticResource staticTextStyle}"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -77,22 +119,22 @@
         <!-- Metric Panels -->
         <UniformGrid Grid.Row="1" Columns="4" HorizontalAlignment="Stretch">
             <!-- Heart Rate Panel -->
-            <Border BorderBrush="#e3e2df" BorderThickness="2" Background="#0a1f53" CornerRadius="10" Padding="20" Margin="0,0,10,10">
+            <Border Margin="0,0,10,10" Style="{StaticResource borderStyle}">
                 <Grid>
                     <!-- Define columns for icon and text -->
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
-                    <Path x:Name="heartRate" Stretch="Uniform" Fill="#FFFFFFFF" Width="60" Height="60" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Path x:Name="heartRate" Style="{StaticResource iconStyle}">
                         <Path.RenderTransform>
                             <ScaleTransform x:Name="HeartScaleTransform" ScaleX="1" ScaleY="1"/>
                         </Path.RenderTransform>
                     </Path>
-                    <TextBlock Text="now" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White"/>
+                    <TextBlock Text="now" Style="{StaticResource timeIndicatorTextStyle}"/>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical">
-                        <TextBlock Text="{Binding HeartRate}" FontSize="28" FontWeight="Bold" Foreground="#2ac145" TextAlignment="Right"/>
-                        <TextBlock Text="Heart Rate" FontSize="16" FontWeight="Bold" Foreground="#e3e2df" TextAlignment="Right"/>
+                        <TextBlock Text="{Binding HeartRate}" Style="{StaticResource bindingTextStyle}"/>
+                        <TextBlock Text="Heart Rate" Style="{StaticResource staticTextStyle}"/>
                     </StackPanel>
                     <Grid.Triggers>
                         <!-- Animation for heartbeat effect -->
@@ -115,59 +157,59 @@
             </Border>
             
             <!-- PR Interval Panel -->
-            <Border BorderBrush="#e3e2df" BorderThickness="2" Background="#0a1f53" CornerRadius="10" Padding="20" Margin="0,0,10,10">
+            <Border Margin="0,0,10,10" Style="{StaticResource borderStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <!-- Define columns for icon and text -->
                         <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
-                    <Path x:Name="PrInterval" Stretch="Uniform" Fill="#FFFFFFFF" Width="60" Height="60" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <TextBlock Text="now" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White"/>
+                    <Path x:Name="PrInterval" Style="{StaticResource iconStyle}"/>
+                    <TextBlock Text="now" Style="{StaticResource timeIndicatorTextStyle}"/>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical">
-                        <TextBlock Text="{Binding PRInterval}" FontSize="28" FontWeight="Bold" Foreground="#2ac145" TextAlignment="Right"/>
-                        <TextBlock Text="PR Interval" FontSize="16" FontWeight="Bold" Foreground="#e3e2df" TextAlignment="Right"/>
+                        <TextBlock Text="{Binding PRInterval}" Style="{StaticResource bindingTextStyle}"/>
+                        <TextBlock Text="PR Interval" Style="{StaticResource staticTextStyle}"/>
                     </StackPanel>
                 </Grid>
             </Border>
 
             <!-- QT Interval Panel -->
-            <Border BorderBrush="#e3e2df" BorderThickness="2" Background="#0a1f53" CornerRadius="10" Padding="20" Margin="0,0,10,10">
+            <Border Margin="0,0,10,10" Style="{StaticResource borderStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <!-- Define columns for icon and text -->
                         <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
-                    <Path x:Name="QtInterval" Stretch="Uniform" Fill="#FFFFFFFF" Width="60" Height="60" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <TextBlock Text="now" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White"/>
+                    <Path x:Name="QtInterval" Style="{StaticResource iconStyle}"/>
+                    <TextBlock Text="now" Style="{StaticResource timeIndicatorTextStyle}"/>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical">
-                        <TextBlock Text="{Binding QTInterval}" FontSize="28" FontWeight="Bold" Foreground="#2ac145" TextAlignment="Right"/>
-                        <TextBlock Text="QT Interval" FontSize="16" FontWeight="Bold" Foreground="#e3e2df" TextAlignment="Right"/>
+                        <TextBlock Text="{Binding QTInterval}" Style="{StaticResource bindingTextStyle}"/>
+                        <TextBlock Text="QT Interval" Style="{StaticResource staticTextStyle}"/>
                     </StackPanel>
                 </Grid>
             </Border>
 
             <!-- QRS Duration Panel -->
-            <Border BorderBrush="#e3e2df" BorderThickness="2" Background="#0a1f53" CornerRadius="10" Padding="20" Margin="0,0,0,10">
+            <Border Margin="0,0,0,10" Style="{StaticResource borderStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <!-- Define columns for icon and text -->
                         <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
-                    <Path x:Name="QrsDuration" Stretch="Uniform" Fill="#FFFFFFFF" Width="60" Height="60" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <TextBlock Text="now" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White"/>
+                    <Path x:Name="QrsDuration" Style="{StaticResource iconStyle}"/>
+                    <TextBlock Text="now" Style="{StaticResource timeIndicatorTextStyle}"/>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical">
-                        <TextBlock Text="{Binding QRSDuration}" FontSize="28" FontWeight="Bold" Foreground="#2ac145" TextAlignment="Right"/>
-                        <TextBlock Text="QRS Duration" FontSize="16" FontWeight="Bold" Foreground="#e3e2df" TextAlignment="Center"/>
+                        <TextBlock Text="{Binding QRSDuration}" Style="{StaticResource bindingTextStyle}"/>
+                        <TextBlock Text="QRS Duration" Style="{StaticResource staticTextStyle}"/>
                     </StackPanel>
                 </Grid>
             </Border>
         </UniformGrid>
 
         <!-- ECG Chart Section -->
-        <Border Grid.Row="2" BorderBrush="#e3e2df" BorderThickness="2" Background="#0a1f53" CornerRadius="10" Padding="20" Margin="0,0,0,10">
+        <Border Grid.Row="2" Margin="0,0,0,10" Style="{StaticResource borderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
                     <!-- Rows for title and chart -->
