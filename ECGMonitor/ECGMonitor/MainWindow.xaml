@@ -58,9 +58,9 @@
 
         <Grid.RowDefinitions>
             <!-- Define rows for different sections -->
-            <RowDefinition Height="2.2*" />
-            <RowDefinition Height="2.2*" />
-            <RowDefinition Height="6.5*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="6*" />
         </Grid.RowDefinitions>
 
         <!-- Title & Metric Panels -->
@@ -222,7 +222,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.2*" />
                         <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="7.5*" />
+                        <ColumnDefinition Width="7.8*" />
                     </Grid.ColumnDefinitions>
 
                     <Ellipse Width="15" Height="15" Fill="#2ac145" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
