@@ -1,0 +1,298 @@
+﻿<Window x:Class="ECGMonitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ECGMonitor.ViewModel"
+        xmlns:chart="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
+        xmlns:button="http://schemas.syncfusion.com/wpf"
+        mc:Ignorable="d" Background="#112e78" WindowState="Maximized">
+
+    <Grid Margin="20">
+        <!-- Set DataContext for binding to view model -->
+        <Grid.DataContext>
+            <local:ECGMonitorViewModel/>
+        </Grid.DataContext>
+
+        <Grid.Resources>
+            <Style TargetType="Border" x:Key="borderStyle">
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="BorderBrush" Value="#e3e2df"/>
+                <Setter Property="Background" Value="#0a1f53"/>
+                <Setter Property="Padding" Value="20"/>
+                <Setter Property="CornerRadius" Value="10"/>
+            </Style>
+
+            <Style TargetType="TextBlock" x:Key="bindingTextStyle">
+                <Setter Property="FontSize" Value="28"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="#2ac145"/>
+                <Setter Property="TextAlignment" Value="Right"/>
+            </Style>
+
+            <Style TargetType="TextBlock" x:Key="staticTextStyle">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="#e3e2df"/>
+                <Setter Property="TextAlignment" Value="Right"/>
+            </Style>
+
+            <Style TargetType="TextBlock" x:Key="timeIndicatorTextStyle">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <Setter Property="Foreground" Value="#FFFFFF"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+
+            <Style TargetType="Path" x:Key="iconStyle">
+                <Setter Property="Stretch" Value="Uniform"/>
+                <Setter Property="Fill" Value="#FFFFFFFF"/>
+                <Setter Property="Width" Value="60"/>
+                <Setter Property="Height" Value="60"/>
+                <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <!-- Define rows for different sections -->
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="6*" />
+        </Grid.RowDefinitions>
+
+        <!-- Title & Metric Panels -->
+        <Grid Grid.Row="0">
+            <!-- Define columns for title and metrics -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="2.5*" />
+                <ColumnDefinition Width="2.5*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- ECG Monitor Title -->
+            <Border Grid.Row="0" Grid.Column="0" Margin="0,0,10,10" Style="{StaticResource borderStyle}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Image Source="/Images/electrocardiogram.png" Width="80" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0" />
+                    <TextBlock Text="Electrocardiogram Monitor" FontSize="35" FontWeight="Bold" Foreground="#e3e2df" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Blood Pressure Metric -->
+            <Border Grid.Row="0" Grid.Column="1" Margin="0,0,10,10" Style="{StaticResource borderStyle}">
+                <Grid>
+                    <!-- Define columns for icon and text -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3.5*"/>
+                        <ColumnDefinition Width="6.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Path x:Name="bloodPressure" Style="{StaticResource iconStyle}"/>
+                    <TextBlock Text="35 min" Style="{StaticResource timeIndicatorTextStyle}"/>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical">
+                        <TextBlock Text="{Binding BloodPressure}" Style="{StaticResource bindingTextStyle}"/>
+                        <TextBlock Text="Blood Pressure" Style="{StaticResource staticTextStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Body Temperature Metric -->
+            <Border Grid.Row="0" Grid.Column="2" Margin="0,0,0,10" Style="{StaticResource borderStyle}">
+                <Grid>
+                    <!-- Define columns for icon and text -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Path x:Name="bodyTemperature" Style="{StaticResource iconStyle}"/>
+                    <TextBlock Text="120 min" Style="{StaticResource timeIndicatorTextStyle}"/>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical">
+                        <TextBlock Text="{Binding BodyTemperature}" Style="{StaticResource bindingTextStyle}"/>
+                        <TextBlock Text="Body Temperature" Style="{StaticResource staticTextStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+        </Grid>
+
+        <!-- Metric Panels -->
+        <UniformGrid Grid.Row="1" Columns="4" HorizontalAlignment="Stretch">
+            <!-- Heart Rate Panel -->
+            <Border Margin="0,0,10,10" Style="{StaticResource borderStyle}">
+                <Grid>
+                    <!-- Define columns for icon and text -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Path x:Name="heartRate" Style="{StaticResource iconStyle}">
+                        <Path.RenderTransform>
+                            <ScaleTransform x:Name="HeartScaleTransform" ScaleX="1" ScaleY="1"/>
+                        </Path.RenderTransform>
+                    </Path>
+                    <TextBlock Text="now" Style="{StaticResource timeIndicatorTextStyle}"/>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical">
+                        <TextBlock Text="{Binding HeartRate}" Style="{StaticResource bindingTextStyle}"/>
+                        <TextBlock Text="Heart Rate" Style="{StaticResource staticTextStyle}"/>
+                    </StackPanel>
+                    <Grid.Triggers>
+                        <!-- Animation for heartbeat effect -->
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                    <DoubleAnimation Storyboard.TargetName="HeartScaleTransform"
+                                                 Storyboard.TargetProperty="ScaleX"
+                                                 From="1.0" To="1.2"
+                                                 Duration="0:0:0.3" />
+                                    <DoubleAnimation Storyboard.TargetName="HeartScaleTransform"
+                                                 Storyboard.TargetProperty="ScaleY"
+                                                 From="1.0" To="1.2"
+                                                 Duration="0:0:0.3" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Grid.Triggers>
+                </Grid>
+            </Border>
+
+            <!-- PR Interval Panel -->
+            <Border Margin="0,0,10,10" Style="{StaticResource borderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <!-- Define columns for icon and text -->
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Path x:Name="PrInterval" Style="{StaticResource iconStyle}"/>
+                    <TextBlock Text="now" Style="{StaticResource timeIndicatorTextStyle}"/>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical">
+                        <TextBlock Text="{Binding PRInterval}" Style="{StaticResource bindingTextStyle}"/>
+                        <TextBlock Text="PR Interval" Style="{StaticResource staticTextStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- QT Interval Panel -->
+            <Border Margin="0,0,10,10" Style="{StaticResource borderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <!-- Define columns for icon and text -->
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Path x:Name="QtInterval" Style="{StaticResource iconStyle}"/>
+                    <TextBlock Text="now" Style="{StaticResource timeIndicatorTextStyle}"/>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical">
+                        <TextBlock Text="{Binding QTInterval}" Style="{StaticResource bindingTextStyle}"/>
+                        <TextBlock Text="QT Interval" Style="{StaticResource staticTextStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- QRS Duration Panel -->
+            <Border Margin="0,0,0,10" Style="{StaticResource borderStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <!-- Define columns for icon and text -->
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Path x:Name="QrsDuration" Style="{StaticResource iconStyle}"/>
+                    <TextBlock Text="now" Style="{StaticResource timeIndicatorTextStyle}"/>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical">
+                        <TextBlock Text="{Binding QRSDuration}" Style="{StaticResource bindingTextStyle}"/>
+                        <TextBlock Text="QRS Duration" Style="{StaticResource staticTextStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </UniformGrid>
+
+        <!-- ECG Chart Section -->
+        <Border Grid.Row="2" Margin="0,0,0,10" Style="{StaticResource borderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <!-- Rows for title and chart -->
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="9*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Title and Export Button -->
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="7.8*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Ellipse Width="15" Height="15" Fill="#2ac145" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Live Signal" Grid.Column="1" FontSize="18" FontWeight="Bold" Foreground="white" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <button:ButtonAdv SizeMode="Normal" Label="Export" IconWidth="30" IconHeight="30" SmallIcon="/Images/export.png" Grid.Column="2" Width="100" Height="35" CornerRadius="10" Click="Button_Click" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- ECG Chart -->
+                <chart:SfChart x:Name="chart" Background="#0a1f53" VerticalAlignment="Stretch" Grid.Row="1" Padding="20">
+
+                    <chart:SfChart.Resources>
+                        <Style TargetType="Line" x:Key="gridLineStyle">
+                            <Setter Property="StrokeThickness" Value="1"/>
+                            <Setter Property="Stroke" Value="#344566"/>
+                        </Style>
+
+                        <Style TargetType="Line" x:Key="lineStyle">
+                            <Setter Property="StrokeThickness" Value="2"/>
+                            <Setter Property="Stroke" Value="#344566"/>
+                        </Style>
+
+                        <Style TargetType="Label" x:Key="axisLabelStyle">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="Foreground" Value="#FFFFFF"/>
+                        </Style>
+
+                        <Style TargetType="HeaderedContentControl" x:Key="axisTitleStyle">
+                            <Setter Property="Foreground" Value="#FFFFFF"/>
+                        </Style>
+                    </chart:SfChart.Resources>
+
+                    <!-- Primary Axis (X) -->
+                    <chart:SfChart.PrimaryAxis>
+                        <chart:NumericalAxis Header="Time in seconds"
+                                        MajorGridLineStyle="{StaticResource gridLineStyle}" 
+                                        MajorTickLineStyle="{StaticResource lineStyle}"
+                                        AxisLineStyle="{StaticResource lineStyle}">
+                            <chart:NumericalAxis.HeaderStyle>
+                                <chart:LabelStyle Foreground="#FFFFFF"/>
+                            </chart:NumericalAxis.HeaderStyle>
+                            <chart:NumericalAxis.LabelStyle>
+                                <chart:LabelStyle Foreground="#FFFFFF" FontSize="14"/>
+                            </chart:NumericalAxis.LabelStyle>
+                        </chart:NumericalAxis>
+                    </chart:SfChart.PrimaryAxis>
+
+                    <!-- Secondary Axis (Y) -->
+                    <chart:SfChart.SecondaryAxis>
+                        <chart:NumericalAxis Maximum="1.5" Minimum="-0.5"
+                                         Header="Voltage in mV"
+                                         MajorGridLineStyle="{StaticResource lineStyle}" 
+                                         MajorTickLineStyle="{StaticResource lineStyle}"
+                                         AxisLineStyle="{StaticResource lineStyle}">
+                            <chart:NumericalAxis.HeaderStyle>
+                                <chart:LabelStyle Foreground="#FFFFFF"/>
+                            </chart:NumericalAxis.HeaderStyle>
+                            <chart:NumericalAxis.LabelStyle>
+                                <chart:LabelStyle Foreground="#FFFFFF" FontSize="14"/>
+                            </chart:NumericalAxis.LabelStyle>
+                        </chart:NumericalAxis>
+                    </chart:SfChart.SecondaryAxis>
+
+                    <!-- Fast Line Series -->
+                    <chart:FastLineSeries ItemsSource="{Binding LiveData}"
+                                      XBindingPath="Time"
+                                      YBindingPath="Voltage"
+                                      Stroke="#00D9FF"
+                                      StrokeThickness="2"/>
+                </chart:SfChart>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
